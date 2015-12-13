@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -17,9 +16,11 @@ namespace App.Tests
         private const string AName = "name";
         private const string AnEmail = "email@noemail.net";
         private const int ACompanyId = 1;
+        private const int LowCreditLimitAmount = 499;
+        private const bool HasCreditLimit = true;
         private readonly DateTime _today = new DateTime(2015, 1, 1);
         private readonly DateTime _dayOfBirthOfMinor = new DateTime(1994, 1, 2);
-        private readonly DateTime _aDateOfBirthAdult = new DateTime(1994, 1, 1);
+        private readonly DateTime _aDateOfBirthOfAdult = new DateTime(1994, 1, 1);
 
         [SetUp]
         public void Init()
@@ -39,7 +40,7 @@ namespace App.Tests
         {
             var customerService = new CustomerService(_customer, _clock, _companyRepository, _creditLimitService, _customerRepository);
 
-            var result = customerService.AddCustomer(firstname, surname, AnEmail, _aDateOfBirthAdult, ACompanyId);
+            var result = customerService.AddCustomer(firstname, surname, AnEmail, _aDateOfBirthOfAdult, ACompanyId);
 
             _customerRepository.DidNotReceive().AddCustomer(_customer);
             Assert.IsFalse(result);
@@ -52,7 +53,7 @@ namespace App.Tests
         {
             var customerService = new CustomerService(_customer, _clock, _companyRepository, _creditLimitService, _customerRepository);
 
-            var result = customerService.AddCustomer(AName, AName, email, _aDateOfBirthAdult, ACompanyId);
+            var result = customerService.AddCustomer(AName, AName, email, _aDateOfBirthOfAdult, ACompanyId);
 
             _customerRepository.DidNotReceive().AddCustomer(_customer);
             Assert.IsFalse(result);
@@ -65,6 +66,20 @@ namespace App.Tests
             _clock.Now().Returns(_today);
 
             var result = customerService.AddCustomer(AName, AName, AnEmail, _dayOfBirthOfMinor, ACompanyId);
+
+            _customerRepository.DidNotReceive().AddCustomer(_customer);
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void not_store_a_customer_if_credit_limit_not_sufficient_and_report_negative_result()
+        {
+            var customerService = new CustomerService(_customer, _clock, _companyRepository, _creditLimitService, _customerRepository);
+            _clock.Now().Returns(_today);
+            _customer.HasCreditLimit.Returns(HasCreditLimit);
+            _customer.CreditLimit.Returns(LowCreditLimitAmount);
+
+            var result = customerService.AddCustomer(AName, AName, AnEmail, _aDateOfBirthOfAdult, ACompanyId);
 
             _customerRepository.DidNotReceive().AddCustomer(_customer);
             Assert.IsFalse(result);
