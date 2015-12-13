@@ -17,13 +17,15 @@ namespace App.Tests
         private const string AName = "name";
         private const string AnEmail = "email@noemail.net";
         private const int ACompanyId = 1;
-        private readonly DateTime _aDateOfBirth = DateTime.MinValue;
+        private readonly DateTime _today = new DateTime(2015, 1, 1);
+        private readonly DateTime _dayOfBirthOfMinor = new DateTime(1994, 1, 2);
+        private readonly DateTime _aDateOfBirthAdult = new DateTime(1994, 1, 1);
 
         [SetUp]
         public void Init()
         {
             _customer = Substitute.For<ICustomer>();
-            _clock = new Clock();
+            _clock = Substitute.For<IClock>();
             _companyRepository = Substitute.For<ICompanyRepository>();
             _creditLimitService = Substitute.For<ICreditLimitService>();
             _customerRepository = Substitute.For<ICustomerRepository>();
@@ -37,7 +39,7 @@ namespace App.Tests
         {
             var customerService = new CustomerService(_customer, _clock, _companyRepository, _creditLimitService, _customerRepository);
 
-            var result = customerService.AddCustomer(firstname, surname, AnEmail, _aDateOfBirth, ACompanyId);
+            var result = customerService.AddCustomer(firstname, surname, AnEmail, _aDateOfBirthAdult, ACompanyId);
 
             _customerRepository.DidNotReceive().AddCustomer(_customer);
             Assert.IsFalse(result);
@@ -50,7 +52,19 @@ namespace App.Tests
         {
             var customerService = new CustomerService(_customer, _clock, _companyRepository, _creditLimitService, _customerRepository);
 
-            var result = customerService.AddCustomer(AName, AName, email, _aDateOfBirth, ACompanyId);
+            var result = customerService.AddCustomer(AName, AName, email, _aDateOfBirthAdult, ACompanyId);
+
+            _customerRepository.DidNotReceive().AddCustomer(_customer);
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void not_store_a_customer_if_age_not_legal_and_report_negative_result()
+        {
+            var customerService = new CustomerService(_customer, _clock, _companyRepository, _creditLimitService, _customerRepository);
+            _clock.Now().Returns(_today);
+
+            var result = customerService.AddCustomer(AName, AName, AnEmail, _dayOfBirthOfMinor, ACompanyId);
 
             _customerRepository.DidNotReceive().AddCustomer(_customer);
             Assert.IsFalse(result);
