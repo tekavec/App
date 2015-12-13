@@ -46,10 +46,16 @@
     <Compile Include="Classification.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="CompanyRepository.cs" />
+    <Compile Include="CreditLimitService.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="CustomerCreditService.cs" />
     <Compile Include="CustomerDataAccess.cs" />
+    <Compile Include="CustomerRepository.cs" />
     <Compile Include="CustomerService.cs" />
+    <Compile Include="ICompanyRepository.cs" />
+    <Compile Include="ICreditLimitService.cs" />
+    <Compile Include="ICustomer.cs" />
+    <Compile Include="ICustomerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

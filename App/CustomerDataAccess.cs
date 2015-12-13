@@ -10,7 +10,7 @@ namespace App
 {
     public static class CustomerDataAccess
     {
-        public static void AddCustomer(Customer customer)
+        public static void AddCustomer(ICustomer customer)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["appDatabase"].ConnectionString;
 

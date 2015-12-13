@@ -2,7 +2,7 @@ using System;
 
 namespace App
 {
-    public class Customer
+    public class Customer : ICustomer
     {
         public int Id { get; set; }
 

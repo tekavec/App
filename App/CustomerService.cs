@@ -7,6 +7,27 @@ namespace App
 {
     public class CustomerService
     {
+        private readonly ICustomer _customer;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly ICompanyRepository _companyRepository;
+        private readonly ICreditLimitService _creditLimitService;
+
+        public CustomerService()
+        {
+            _customer = new Customer();
+            _companyRepository = new CompanyRepository();
+            _customerRepository = new CustomerRepository();
+            _creditLimitService = new CreditLimitService();
+        }
+
+        public CustomerService(ICustomer customer, ICustomerRepository customerRepository, ICompanyRepository companyRepository, ICreditLimitService creditLimitService)
+        {
+            _customer = customer;
+            _customerRepository = customerRepository;
+            _companyRepository = companyRepository;
+            _creditLimitService = creditLimitService;
+        }
+
         public bool AddCustomer(string firname, string surname, string email, DateTime dateOfBirth, int companyId)
         {
             if (string.IsNullOrEmpty(firname) || string.IsNullOrEmpty(surname))
@@ -28,51 +49,22 @@ namespace App
                 return false;
             }
 
-            var companyRepository = new CompanyRepository();
-            var company = companyRepository.GetById(companyId);
+            var company = _companyRepository.GetById(companyId);
 
-            var customer = new Customer
-                               {
-                                   Company = company,
-                                   DateOfBirth = dateOfBirth,
-                                   EmailAddress = email,
-                                   Firstname = firname,
-                                   Surname = surname
-                               };
+            _customer.Company = company;
+            _customer.DateOfBirth = dateOfBirth;
+            _customer.EmailAddress = email;
+            _customer.Firstname = firname;
+            _customer.Surname = surname;
 
-            if (company.Name == "VeryImportantClient")
-            {
-                // Skip credit check
-                customer.HasCreditLimit = false;
-            }
-            else if (company.Name == "ImportantClient")
-            {
-                // Do credit check and double credit limit
-                customer.HasCreditLimit = true;
-                using (var customerCreditService = new CustomerCreditServiceClient())
-                {
-                    var creditLimit = customerCreditService.GetCreditLimit(customer.Firstname, customer.Surname, customer.DateOfBirth);
-                    creditLimit = creditLimit*2;
-                    customer.CreditLimit = creditLimit;
-                }
-            }
-            else
-            {
-                // Do credit check
-                customer.HasCreditLimit = true;
-                using (var customerCreditService = new CustomerCreditServiceClient())
-                {
-                    var creditLimit = customerCreditService.GetCreditLimit(customer.Firstname, customer.Surname, customer.DateOfBirth);
-                    customer.CreditLimit = creditLimit;
-                }
-            }
+            _creditLimitService.SetCreditLimitTo(_customer);
 
-            if (customer.HasCreditLimit && customer.CreditLimit < 500)
+            if (_customer.HasCreditLimit && _customer.CreditLimit < 500)
             {
                 return false;
             }
 
-            CustomerDataAccess.AddCustomer(customer);
+            _customerRepository.AddCustomer(_customer);
 
             return true;
         }
