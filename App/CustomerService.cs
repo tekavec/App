@@ -8,24 +8,27 @@ namespace App
     public class CustomerService
     {
         private readonly ICustomer _customer;
-        private readonly ICustomerRepository _customerRepository;
-        private readonly ICompanyRepository _companyRepository;
+        private readonly IClock _clock;
         private readonly ICreditLimitService _creditLimitService;
+        private readonly ICompanyRepository _companyRepository;
+        private readonly ICustomerRepository _customerRepository;
 
         public CustomerService()
         {
             _customer = new Customer();
+            _clock = new Clock();
+            _creditLimitService = new CreditLimitService();
             _companyRepository = new CompanyRepository();
             _customerRepository = new CustomerRepository();
-            _creditLimitService = new CreditLimitService();
         }
 
-        public CustomerService(ICustomer customer, ICustomerRepository customerRepository, ICompanyRepository companyRepository, ICreditLimitService creditLimitService)
+        public CustomerService(ICustomer customer, IClock clock, ICompanyRepository companyRepository, ICreditLimitService creditLimitService, ICustomerRepository customerRepository)
         {
             _customer = customer;
-            _customerRepository = customerRepository;
-            _companyRepository = companyRepository;
+            _clock = clock;
             _creditLimitService = creditLimitService;
+            _companyRepository = companyRepository;
+            _customerRepository = customerRepository;
         }
 
         public bool AddCustomer(string firname, string surname, string email, DateTime dateOfBirth, int companyId)
@@ -35,12 +38,12 @@ namespace App
                 return false;
             }
 
-            if (!email.Contains("@") && !email.Contains("."))
+            if (!(email.Contains("@") && email.Contains(".")))
             {
                 return false;
             }
 
-            var now = DateTime.Now;
+            var now = _clock.Now();
             int age = now.Year - dateOfBirth.Year;
             if (now.Month < dateOfBirth.Month || (now.Month == dateOfBirth.Month && now.Day < dateOfBirth.Day)) age--;
 
