@@ -43,18 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\CreatingCustomerNotAllowedException.cs" />
+    <Compile Include="Infrastructure\Clock\Clock.cs" />
+    <Compile Include="Infrastructure\Clock\IClock.cs" />
+    <Compile Include="Infrastructure\Company\CompanyRepository.cs" />
+    <Compile Include="Infrastructure\Company\ICompanyRepository.cs" />
+    <Compile Include="Infrastructure\Customer\CustomerCreditService.cs" />
+    <Compile Include="Infrastructure\Customer\CustomerDataAccess.cs" />
+    <Compile Include="Infrastructure\Customer\CustomerRepository.cs" />
+    <Compile Include="Infrastructure\Customer\ICustomerRepository.cs" />
+    <Compile Include="Infrastructure\Exceptions\CreatingCustomerNotAllowedException.cs" />
     <Compile Include="Model\CustomerFactory.cs" />
     <Compile Include="Model\CustomerValidator.cs" />
     <Compile Include="Model\ICustomerFactory.cs" />
     <Compile Include="Model\ICustomerValidator.cs" />
-    <Compile Include="Infrastructure\Clock.cs" />
-    <Compile Include="Infrastructure\CompanyRepository.cs" />
-    <Compile Include="Infrastructure\CustomerDataAccess.cs" />
-    <Compile Include="Infrastructure\CustomerRepository.cs" />
-    <Compile Include="Infrastructure\IClock.cs" />
-    <Compile Include="Infrastructure\ICompanyRepository.cs" />
-    <Compile Include="Infrastructure\ICustomerRepository.cs" />
     <Compile Include="Model\Classification.cs" />
     <Compile Include="Model\Company.cs" />
     <Compile Include="Model\CreditLimit.cs" />
@@ -62,15 +63,14 @@
     <Compile Include="CustomerService.cs" />
     <Compile Include="Model\ICustomer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CreditLimitAmountService.cs" />
-    <Compile Include="Services\CreditLimitCalculatorFactory.cs" />
-    <Compile Include="Infrastructure\CustomerCreditService.cs" />
-    <Compile Include="Services\ICreditLimitAmountService.cs" />
-    <Compile Include="Services\ICreditLimitCalculator.cs" />
-    <Compile Include="Services\ICreditLimitCalculatorFactory.cs" />
-    <Compile Include="Services\CreditLimitCalculator.cs" />
-    <Compile Include="Services\ImportantClientCreditLimit.cs" />
-    <Compile Include="Services\VeryImportantClientCreditLimit.cs" />
+    <Compile Include="Services\CreditLimitAmount\CreditLimitAmountService.cs" />
+    <Compile Include="Services\CreditLimitAmount\ICreditLimitAmountService.cs" />
+    <Compile Include="Services\CustomerCreditLimit\CreditLimitCalculator.cs" />
+    <Compile Include="Services\CustomerCreditLimit\CreditLimitCalculatorFactory.cs" />
+    <Compile Include="Services\CustomerCreditLimit\ICreditLimitCalculator.cs" />
+    <Compile Include="Services\CustomerCreditLimit\ICreditLimitCalculatorFactory.cs" />
+    <Compile Include="Services\CustomerCreditLimit\ImportantClientCreditLimit.cs" />
+    <Compile Include="Services\CustomerCreditLimit\VeryImportantClientCreditLimit.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

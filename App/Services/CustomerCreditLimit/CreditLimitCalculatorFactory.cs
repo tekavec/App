@@ -1,7 +1,7 @@
 using System;
-using App.Model;
+using App.Services.CreditLimitAmount;
 
-namespace App.Services
+namespace App.Services.CustomerCreditLimit
 {
     public class CreditLimitCalculatorFactory : ICreditLimitCalculatorFactory
     {

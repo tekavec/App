@@ -1,7 +1,11 @@
 ﻿using System;
-using App.Infrastructure;
+using App.Infrastructure.Clock;
+using App.Infrastructure.Company;
+using App.Infrastructure.Customer;
+using App.Infrastructure.Exceptions;
 using App.Model;
-using App.Services;
+using App.Services.CreditLimitAmount;
+using App.Services.CustomerCreditLimit;
 
 namespace App
 {

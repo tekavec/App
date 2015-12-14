@@ -1,8 +1,8 @@
 using System;
 using App.Infrastructure;
-using App.Model;
+using App.Infrastructure.Customer;
 
-namespace App.Services
+namespace App.Services.CreditLimitAmount
 {
     public class CreditLimitAmountService : ICreditLimitAmountService
     {

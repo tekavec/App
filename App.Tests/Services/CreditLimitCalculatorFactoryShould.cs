@@ -1,13 +1,13 @@
 ﻿using System;
-using App.Model;
-using App.Services;
+using App.Services.CreditLimitAmount;
+using App.Services.CustomerCreditLimit;
 using NSubstitute;
 using NUnit.Framework;
 
 namespace App.Tests.Services
 {
     [TestFixture]
-    public class CreditLimitServiceShould
+    public class CreditLimitCalculatorFactoryShould
     {
         private ICreditLimitAmountService _creditLimitAmountService;
         private const string VeryImportantClientName = "VeryImportantClient";

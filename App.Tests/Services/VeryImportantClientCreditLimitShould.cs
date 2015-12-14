@@ -1,4 +1,4 @@
-﻿using App.Services;
+﻿using App.Services.CustomerCreditLimit;
 using NUnit.Framework;
 
 namespace App.Tests.Services

@@ -1,6 +1,9 @@
 using System;
 using App.Infrastructure;
+using App.Infrastructure.Company;
+using App.Infrastructure.Exceptions;
 using App.Services;
+using App.Services.CustomerCreditLimit;
 
 namespace App.Model
 {

@@ -1,6 +1,6 @@
 using App.Model;
 
-namespace App.Infrastructure
+namespace App.Infrastructure.Customer
 {
     public class CustomerRepository : ICustomerRepository
     {

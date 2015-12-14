@@ -1,9 +1,9 @@
 ﻿using System;
 using App.Model;
-using App.Services;
+using App.Services.CreditLimitAmount;
+using App.Services.CustomerCreditLimit;
 using NSubstitute;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 
 namespace App.Tests.Services
 {

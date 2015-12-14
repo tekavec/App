@@ -51,7 +51,7 @@
     <Compile Include="Model\CreditLimitShould.cs" />
     <Compile Include="Model\CustomerFactoryShould.cs" />
     <Compile Include="Model\CustomerValidatorShould.cs" />
-    <Compile Include="Services\CreditLimitServiceShould.cs" />
+    <Compile Include="Services\CreditLimitCalculatorFactoryShould.cs" />
     <Compile Include="CustomerServiceShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\OtherClientCreditLimitShould.cs" />

@@ -1,7 +1,6 @@
 using System;
-using App.Model;
 
-namespace App.Services
+namespace App.Services.CustomerCreditLimit
 {
     public interface ICreditLimitCalculatorFactory
     {

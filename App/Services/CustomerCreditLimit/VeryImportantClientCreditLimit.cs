@@ -1,6 +1,6 @@
 ﻿using App.Model;
 
-namespace App.Services
+namespace App.Services.CustomerCreditLimit
 {
     public class VeryImportantClientCreditLimit : ICreditLimitCalculator
     {

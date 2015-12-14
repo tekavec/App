@@ -1,9 +1,10 @@
 using System;
 using App.Model;
+using App.Services.CreditLimitAmount;
 
-namespace App.Services
+namespace App.Services.CustomerCreditLimit
 {
-    public class OtherClientCreditLimit : ICreditLimitCalculator
+    public class ImportantClientCreditLimit : ICreditLimitCalculator
     {
         private readonly ICreditLimitAmountService _creditLimitAmountService;
         private readonly string _firstname;
@@ -11,7 +12,7 @@ namespace App.Services
         private readonly DateTime _dateOfBirth;
         private const bool HasCreditLimit = true;
 
-        public OtherClientCreditLimit(ICreditLimitAmountService creditLimitAmountService, string firstname, string surname, DateTime dateOfBirth)
+        public ImportantClientCreditLimit(ICreditLimitAmountService creditLimitAmountService, string firstname, string surname, DateTime dateOfBirth)
         {
             _creditLimitAmountService = creditLimitAmountService;
             _firstname = firstname;
@@ -22,7 +23,7 @@ namespace App.Services
         public CreditLimit GetCreditLimit()
         {
             var creditLimitAmount = _creditLimitAmountService.GetCreditLimitAmount(_firstname, _surname, _dateOfBirth);
-            return new CreditLimit(HasCreditLimit, creditLimitAmount);
+            return new CreditLimit(HasCreditLimit, creditLimitAmount * 2);
         }
     }
 }

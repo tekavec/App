@@ -1,7 +1,8 @@
 ﻿using System;
-using App.Infrastructure;
+using App.Infrastructure.Company;
+using App.Infrastructure.Exceptions;
 using App.Model;
-using App.Services;
+using App.Services.CustomerCreditLimit;
 using NSubstitute;
 using NUnit.Framework;
 

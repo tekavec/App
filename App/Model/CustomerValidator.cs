@@ -1,5 +1,5 @@
 using System;
-using App.Infrastructure;
+using App.Infrastructure.Clock;
 
 namespace App.Model
 {
@@ -14,29 +14,32 @@ namespace App.Model
 
         public bool IsValid(string firstname, string surname, string emailAddress, DateTime dateOfBirth, bool hasCreditLimit, int creditLimitAmount)
         {
-            if (string.IsNullOrEmpty(firstname) || string.IsNullOrEmpty(surname))
-            {
-                return false;
-            }
+            if (!AreFirstnameAndSurnameValid(firstname, surname)) return false;
+            if (!IsEmailAddressValid(emailAddress)) return false;
+            if (!IsAgeValid(dateOfBirth)) return false;
+            if (!IsCreditLimitSufficient(hasCreditLimit, creditLimitAmount)) return false;
+            return true;
+        }
+        private bool AreFirstnameAndSurnameValid(string firstname, string surname)
+        {
+            return !string.IsNullOrEmpty(firstname) && !string.IsNullOrEmpty(surname);
+        }
+        private bool IsEmailAddressValid(string emailAddress)
+        {
+            return emailAddress.Contains("@") && emailAddress.Contains(".");
+        }
 
-            if (!emailAddress.Contains("@") || !emailAddress.Contains("."))
-            {
-                return false;
-            }
-
+        private bool IsAgeValid(DateTime dateOfBirth)
+        {
             var now = _clock.Now();
             int age = now.Year - dateOfBirth.Year;
             if (now.Month < dateOfBirth.Month || (now.Month == dateOfBirth.Month && now.Day < dateOfBirth.Day)) age--;
+            return age >= 21;
+        }
 
-            if (age < 21)
-            {
-                return false;
-            }
-            if (hasCreditLimit && creditLimitAmount < 500)
-            {
-                return false;
-            }
-            return true;
+        private bool IsCreditLimitSufficient(bool hasCreditLimit, int creditLimitAmount)
+        {
+            return !hasCreditLimit || creditLimitAmount >= 500;
         }
     }
 }

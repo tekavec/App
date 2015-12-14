@@ -3,13 +3,13 @@ using System.Data;
 using System.Data.SqlClient;
 using App.Model;
 
-namespace App.Infrastructure
+namespace App.Infrastructure.Company
 {
     public class CompanyRepository : ICompanyRepository
     {
-        public Company GetById(int id)
+        public Model.Company GetById(int id)
         {
-            Company company = null;
+            Model.Company company = null;
             var connectionString = ConfigurationManager.ConnectionStrings["appDatabase"].ConnectionString;
 
             using (var connection = new SqlConnection(connectionString))
@@ -28,7 +28,7 @@ namespace App.Infrastructure
                 var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
                 while (reader.Read())
                 {
-                    company = new Company
+                    company = new Model.Company
                                       {
                                           Id = int.Parse(reader["CompanyId"].ToString()),
                                           Name = reader["Name"].ToString(),

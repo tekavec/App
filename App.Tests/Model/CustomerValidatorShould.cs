@@ -1,5 +1,5 @@
 ﻿using System;
-using App.Infrastructure;
+using App.Infrastructure.Clock;
 using App.Model;
 using NSubstitute;
 using NUnit.Framework;
@@ -12,7 +12,8 @@ namespace App.Tests.Model
         private IClock _clock;
 
         private const string EmptyString = "";
-        private const string AName = "AName";
+        private const string AFirstname = "firstname";
+        private const string ASurname = "surname";
         private const string AnEmail = "email@noemail.net";
         private const int HighCreditLimitAmount = 500;
         private const int LowCreditLimitAmount = 499;
@@ -30,10 +31,10 @@ namespace App.Tests.Model
             _customerValidator = new CustomerValidator(_clock);
         }
 
-        [TestCase(null, AName)]
-        [TestCase(EmptyString, AName)]
-        [TestCase(AName, null)]
-        [TestCase(AName, EmptyString)]
+        [TestCase(null, ASurname)]
+        [TestCase(EmptyString, ASurname)]
+        [TestCase(AFirstname, null)]
+        [TestCase(AFirstname, EmptyString)]
         public void not_be_valid_if_firstname_or_surname_are_invalid(string firstname, string surname)
         {
             var result = _customerValidator.IsValid(firstname, surname, AnEmail, _aDateOfBirthOfAdult, HasCreditLimit, HighCreditLimitAmount);
@@ -46,7 +47,7 @@ namespace App.Tests.Model
         [TestCase("incorrectemail")]
         public void not_be_valid_if_if_email_is_invalid(string email)
         {
-            var result = _customerValidator.IsValid(AName, AName, email, _aDateOfBirthOfAdult, HasCreditLimit, HighCreditLimitAmount);
+            var result = _customerValidator.IsValid(AFirstname, ASurname, email, _aDateOfBirthOfAdult, HasCreditLimit, HighCreditLimitAmount);
 
             Assert.IsFalse(result);
         }
@@ -55,7 +56,7 @@ namespace App.Tests.Model
         public void not_be_valid_if_age_not_legal()
         {
             _clock.Now().Returns(_today);
-            var result = _customerValidator.IsValid(AName, AName, AnEmail, _dayOfBirthOfMinor, HasCreditLimit, HighCreditLimitAmount);
+            var result = _customerValidator.IsValid(AFirstname, ASurname, AnEmail, _dayOfBirthOfMinor, HasCreditLimit, HighCreditLimitAmount);
 
             Assert.IsFalse(result);
         }
@@ -63,7 +64,7 @@ namespace App.Tests.Model
         [Test]
         public void not_be_valid_if_credit_limit_not_sufficient()
         {
-            var result = _customerValidator.IsValid(AName, AName, AnEmail, _aDateOfBirthOfAdult, HasCreditLimit, LowCreditLimitAmount);
+            var result = _customerValidator.IsValid(AFirstname, ASurname, AnEmail, _aDateOfBirthOfAdult, HasCreditLimit, LowCreditLimitAmount);
 
             Assert.IsFalse(result);
         }
@@ -73,7 +74,7 @@ namespace App.Tests.Model
         public void be_valid_if_firstname_and_surname_and_email_are_valid_and_credit_limit_is_sufficient(bool hasCreditLimit, int creditLimitAmount)
         {
             _clock.Now().Returns(_today);
-            var result = _customerValidator.IsValid(AName, AName, AnEmail, _aDateOfBirthOfAdult, hasCreditLimit, creditLimitAmount);
+            var result = _customerValidator.IsValid(AFirstname, ASurname, AnEmail, _aDateOfBirthOfAdult, hasCreditLimit, creditLimitAmount);
 
             Assert.IsTrue(result);
         }
