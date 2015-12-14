@@ -1,3 +1,4 @@
+using System;
 using App.Model;
 
 namespace App.Services
@@ -11,26 +12,26 @@ namespace App.Services
             _creditLimitAmountService = creditLimitAmountService;
         }
 
-        public void SetCreditLimitTo(ICustomer customer)
+        public CreditLimit SetCreditLimitTo(string companyName, string firstname, string surname, DateTime dateOfBirth)
         {
-            if (customer.Company.Name == "VeryImportantClient")
+            if (companyName == "VeryImportantClient")
             {
                 // Skip credit check
-                customer.HasCreditLimit = false;
+                return new CreditLimit(false, new int());
+
             }
-            else if (customer.Company.Name == "ImportantClient")
+            else if (companyName == "ImportantClient")
             {
                 // Do credit check and double credit limit
-                customer.HasCreditLimit = true;
-                var creditLimit = _creditLimitAmountService.GetCreditLimitAmount(customer);
-                customer.CreditLimit = creditLimit*2;
+                var creditLimit = _creditLimitAmountService.GetCreditLimitAmount(firstname, surname, dateOfBirth);
+                return new CreditLimit(true, creditLimit * 2);
+
             }
             else
             {
                 // Do credit check
-                customer.HasCreditLimit = true;
-                var creditLimit = _creditLimitAmountService.GetCreditLimitAmount(customer);
-                customer.CreditLimit = creditLimit;
+                var creditLimit = _creditLimitAmountService.GetCreditLimitAmount(firstname, surname, dateOfBirth);
+                return new CreditLimit(true, creditLimit);
             }
         }
     }

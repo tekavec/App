@@ -1,9 +1,10 @@
+using System;
 using App.Model;
 
 namespace App.Services
 {
     public interface ICreditLimitService
     {
-        void SetCreditLimitTo(ICustomer customer);
+        CreditLimit SetCreditLimitTo(string companyName, string firstname, string surname, DateTime dateOfBirth);
     }
 }

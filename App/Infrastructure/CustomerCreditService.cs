@@ -1,4 +1,4 @@
-﻿namespace App.Services
+﻿namespace App.Infrastructure
 {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName = "App.ICustomerCreditService")]

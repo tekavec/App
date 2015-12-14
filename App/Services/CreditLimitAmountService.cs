@@ -1,17 +1,19 @@
+using System;
+using App.Infrastructure;
 using App.Model;
 
 namespace App.Services
 {
     public class CreditLimitAmountService : ICreditLimitAmountService
     {
-        public int GetCreditLimitAmount(ICustomer customer)
+        public int GetCreditLimitAmount(string firstname, string surname, DateTime dateOfBirth)
         {
-            int creditLimit;
+            int creditLimitAmount;
             using (var customerCreditService = new CustomerCreditServiceClient())
             {
-                creditLimit = customerCreditService.GetCreditLimit(customer.Firstname, customer.Surname, customer.DateOfBirth);
+                creditLimitAmount = customerCreditService.GetCreditLimit(firstname, surname, dateOfBirth);
             }
-            return creditLimit;
+            return creditLimitAmount;
         }
     }
 }

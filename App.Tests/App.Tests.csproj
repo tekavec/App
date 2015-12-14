@@ -48,6 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\CreditLimitShould.cs" />
+    <Compile Include="Model\CustomerFactoryShould.cs" />
+    <Compile Include="Model\CustomerValidatorShould.cs" />
     <Compile Include="Services\CreditLimitServiceShould.cs" />
     <Compile Include="CustomerServiceShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
