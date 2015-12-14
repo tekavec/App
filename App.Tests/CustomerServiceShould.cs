@@ -16,7 +16,9 @@ namespace App.Tests
         private const string AName = "name";
         private const string AnEmail = "email@noemail.net";
         private const int ACompanyId = 1;
+        private const int HighCreditLimitAmount = 500;
         private const int LowCreditLimitAmount = 499;
+        private const bool HasNoCreditLimit = false;
         private const bool HasCreditLimit = true;
         private readonly DateTime _today = new DateTime(2015, 1, 1);
         private readonly DateTime _dayOfBirthOfMinor = new DateTime(1994, 1, 2);
@@ -83,6 +85,21 @@ namespace App.Tests
 
             _customerRepository.DidNotReceive().AddCustomer(_customer);
             Assert.IsFalse(result);
+        }
+
+        [TestCase(HasCreditLimit, HighCreditLimitAmount)]
+        [TestCase(HasNoCreditLimit, LowCreditLimitAmount)]
+        public void store_a_valid_customer_and_report_positive_result(bool hasCreditLimit, int creditLimitAmount)
+        {
+            var customerService = new CustomerService(_customer, _clock, _companyRepository, _creditLimitService, _customerRepository);
+            _clock.Now().Returns(_today);
+            _customer.HasCreditLimit.Returns(hasCreditLimit);
+            _customer.CreditLimit.Returns(creditLimitAmount);
+
+            var result = customerService.AddCustomer(AName, AName, AnEmail, _aDateOfBirthOfAdult, ACompanyId);
+
+            _customerRepository.Received().AddCustomer(_customer);
+            Assert.IsTrue(result);
         }
     }
 }
