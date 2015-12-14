@@ -4,6 +4,6 @@ namespace App.Services.CustomerCreditLimit
 {
     public interface ICreditLimitCalculator
     {
-        CreditLimit GetCreditLimit();
+        ICreditLimit GetCreditLimit();
     }
 }

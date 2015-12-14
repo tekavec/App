@@ -1,4 +1,5 @@
 using System;
+using App.Model;
 using App.Services.CreditLimitAmount;
 
 namespace App.Services.CustomerCreditLimit
@@ -19,7 +20,7 @@ namespace App.Services.CustomerCreditLimit
             _dateOfBirth = dateOfBirth;
         }
 
-        public Model.CreditLimit GetCreditLimit()
+        public ICreditLimit GetCreditLimit()
         {
             var creditLimitAmount = _creditLimitAmountService.GetCreditLimitAmount(_firstname, _surname, _dateOfBirth);
             return new Model.CreditLimit(HasCreditLimit, creditLimitAmount);

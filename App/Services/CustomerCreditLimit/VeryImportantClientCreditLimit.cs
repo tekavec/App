@@ -6,7 +6,7 @@ namespace App.Services.CustomerCreditLimit
     {
         public bool HasNoCreditLimit = false;
 
-        public CreditLimit GetCreditLimit()
+        public ICreditLimit GetCreditLimit()
         {
             return new CreditLimit(HasNoCreditLimit, new int());
         }

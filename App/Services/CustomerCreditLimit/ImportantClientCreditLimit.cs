@@ -20,7 +20,7 @@ namespace App.Services.CustomerCreditLimit
             _dateOfBirth = dateOfBirth;
         }
 
-        public CreditLimit GetCreditLimit()
+        public ICreditLimit GetCreditLimit()
         {
             var creditLimitAmount = _creditLimitAmountService.GetCreditLimitAmount(_firstname, _surname, _dateOfBirth);
             return new CreditLimit(HasCreditLimit, creditLimitAmount * 2);

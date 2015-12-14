@@ -1,6 +1,6 @@
 ﻿namespace App.Model
 {
-    public class CreditLimit
+    public class CreditLimit : ICreditLimit
     {
         private readonly bool _hasCreditLimit;
         private readonly int _creditLimitAmount;

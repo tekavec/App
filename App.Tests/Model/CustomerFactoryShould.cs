@@ -25,7 +25,7 @@ namespace App.Tests.Model
         private const bool HasNoCreditLimit = false;
         private CreditLimit _aCreditLimit;
         private ICustomerFactory _customerFactory;
-        private Company _company;
+        private Company _aCompany;
 
         [SetUp]
         public void Init()
@@ -35,10 +35,10 @@ namespace App.Tests.Model
             _customerValidator = Substitute.For<ICustomerValidator>();
             _creditLimitCalculator = Substitute.For<ICreditLimitCalculator>();
             _aCreditLimit = new CreditLimit(HasNoCreditLimit, _creditLimitAmount);
-            _customerFactory = new CustomerFactory(_companyRepository, _creditLimitCalculatorFactory, _customerValidator);
-            _company = new Company { Id = ACompanyId, Name = ACompanyName };
-            _companyRepository.GetById(ACompanyId).Returns(_company);
-            _creditLimitCalculatorFactory.GetCreditLimitCalculator(_company.Name, AFirstname, ASurname, _aDateOfBirth)
+            _customerFactory = new CustomerFactory(_customerValidator);
+            _aCompany = new Company { Id = ACompanyId, Name = ACompanyName };
+            _companyRepository.GetById(ACompanyId).Returns(_aCompany);
+            _creditLimitCalculatorFactory.GetCreditLimitCalculator(_aCompany.Name, AFirstname, ASurname, _aDateOfBirth)
                 .Returns(_creditLimitCalculator);
             _creditLimitCalculator.GetCreditLimit().Returns(_aCreditLimit);
         }
@@ -49,7 +49,7 @@ namespace App.Tests.Model
             _customerValidator.IsValid(AFirstname, ASurname, AnEmail, _aDateOfBirth, HasNoCreditLimit, _creditLimitAmount)
                 .Returns(false);
 
-            TestDelegate testDelegate = () => _customerFactory.CreateCustomer(AFirstname, ASurname, AnEmail, _aDateOfBirth, ACompanyId);
+            TestDelegate testDelegate = () => _customerFactory.CreateCustomer(AFirstname, ASurname, AnEmail, _aDateOfBirth, _aCompany, _aCreditLimit);
 
             Assert.Throws<CreatingCustomerNotAllowedException>(testDelegate);
         }
@@ -60,7 +60,7 @@ namespace App.Tests.Model
             _customerValidator.IsValid(AFirstname, ASurname, AnEmail, _aDateOfBirth, HasNoCreditLimit, _creditLimitAmount)
                 .Returns(true);
 
-            var customer = _customerFactory.CreateCustomer(AFirstname, ASurname, AnEmail, _aDateOfBirth, ACompanyId);
+            var customer = _customerFactory.CreateCustomer(AFirstname, ASurname, AnEmail, _aDateOfBirth, _aCompany, _aCreditLimit);
 
             Assert.That(customer, Is.TypeOf<Customer>());
         }

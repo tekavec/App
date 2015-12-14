@@ -17,16 +17,12 @@ namespace App.Services.CustomerCreditLimit
             if (companyName == "VeryImportantClient")
             {
                 return new VeryImportantClientCreditLimit();
-
             }
-            else if (companyName == "ImportantClient")
+            if (companyName == "ImportantClient")
             {
                 return new ImportantClientCreditLimit(_creditLimitAmountService, firstname, surname, dateOfBirth);
             }
-            else
-            {
-                return new OtherClientCreditLimit(_creditLimitAmountService, firstname, surname, dateOfBirth);
-            }
+            return new OtherClientCreditLimit(_creditLimitAmountService, firstname, surname, dateOfBirth);
         }
     }
 }
