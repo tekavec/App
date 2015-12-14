@@ -14,7 +14,7 @@ namespace App
         {
             _customer = new Customer();
             _clock = new Clock();
-            _creditLimitService = new CreditLimitService();
+            _creditLimitService = new CreditLimitService(new CreditLimitAmountService());
             _companyRepository = new CompanyRepository();
             _customerRepository = new CustomerRepository();
         }

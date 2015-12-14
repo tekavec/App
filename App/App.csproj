@@ -47,6 +47,7 @@
     <Compile Include="Clock.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="CompanyRepository.cs" />
+    <Compile Include="CreditLimitAmountService.cs" />
     <Compile Include="CreditLimitService.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="CustomerCreditService.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="CustomerService.cs" />
     <Compile Include="IClock.cs" />
     <Compile Include="ICompanyRepository.cs" />
+    <Compile Include="ICreditLimitAmountService.cs" />
     <Compile Include="ICreditLimitService.cs" />
     <Compile Include="ICustomer.cs" />
     <Compile Include="ICustomerRepository.cs" />
