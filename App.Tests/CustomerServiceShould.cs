@@ -19,7 +19,6 @@ namespace App.Tests
         private ICreditLimitCalculatorFactory _creditLimitCalculatorFactory;
         private ICreditLimitCalculator _creditLimitCalculator;
         private ICreditLimit _aCreditLimit;
-
         private const string AFirstname = "firstname";
         private const string ASurname = "surname";
         private const string AnEmail = "email@noemail.net";
@@ -45,7 +44,7 @@ namespace App.Tests
         }
 
         [Test]
-        public void store_a_customer_if_customer_can_be_created()
+        public void store_a_customer_and_return_a_positive_result_if_customer_can_be_created()
         {
             var customerService = new CustomerService(_customerRepository, _customerFactory, _companyRepository, _creditLimitCalculatorFactory);
             var customer = new Customer();
@@ -54,11 +53,12 @@ namespace App.Tests
 
             var result = customerService.AddCustomer(AFirstname, ASurname, AnEmail, _aDateOfBirth, ACompanyId);
 
+            _customerRepository.Received().AddCustomer(customer);
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void not_store_a_customer_if_customer_can_not_be_created()
+        public void not_store_a_customer_and_return_a_negative_result_if_customer_can_not_be_created()
         {
             var customerService = new CustomerService(_customerRepository, _customerFactory, _companyRepository, _creditLimitCalculatorFactory);
             _customerFactory.CreateCustomer(AFirstname, ASurname, AnEmail, _aDateOfBirth, _aCompany, _aCreditLimit)
