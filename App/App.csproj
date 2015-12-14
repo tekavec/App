@@ -63,11 +63,11 @@
     <Compile Include="Model\ICustomer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CreditLimitAmountService.cs" />
-    <Compile Include="Services\CreditLimitService.cs" />
+    <Compile Include="Services\CreditLimitCalculatorFactory.cs" />
     <Compile Include="Infrastructure\CustomerCreditService.cs" />
     <Compile Include="Services\ICreditLimitAmountService.cs" />
     <Compile Include="Services\ICreditLimitCalculator.cs" />
-    <Compile Include="Services\ICreditLimitService.cs" />
+    <Compile Include="Services\ICreditLimitCalculatorFactory.cs" />
     <Compile Include="Services\CreditLimitCalculator.cs" />
     <Compile Include="Services\ImportantClientCreditLimit.cs" />
     <Compile Include="Services\VeryImportantClientCreditLimit.cs" />

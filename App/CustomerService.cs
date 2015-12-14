@@ -13,10 +13,10 @@ namespace App
         public CustomerService()
         {
             ICustomerValidator customerValidator = new CustomerValidator(new Clock());
-            ICreditLimitService creditLimitService = new CreditLimitService(new CreditLimitAmountService());
+            ICreditLimitCalculatorFactory creditLimitCalculatorFactory = new CreditLimitCalculatorFactory(new CreditLimitAmountService());
             ICompanyRepository companyRepository = new CompanyRepository();
             _customerRepository = new CustomerRepository();
-            _customerFactory = new CustomerFactory(companyRepository, creditLimitService, customerValidator);
+            _customerFactory = new CustomerFactory(companyRepository, creditLimitCalculatorFactory, customerValidator);
         }
 
         public CustomerService(ICustomerRepository customerRepository, ICustomerFactory customerFactory)
