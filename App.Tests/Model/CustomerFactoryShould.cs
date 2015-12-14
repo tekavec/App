@@ -44,7 +44,7 @@ namespace App.Tests.Model
         }
 
         [Test]
-        public void throw_a_creating_customer_not_allowed_exception_if_validation_not_passed()
+        public void throw_an_exception_if_validation_not_passed()
         {
             _customerValidator.IsValid(AFirstname, ASurname, AnEmail, _aDateOfBirth, HasNoCreditLimit, _creditLimitAmount)
                 .Returns(false);

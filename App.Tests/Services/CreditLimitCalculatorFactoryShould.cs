@@ -25,9 +25,9 @@ namespace App.Tests.Services
             _creditLimitCalculatorFactory = new CreditLimitCalculatorFactory(_creditLimitAmountService);
         }
 
-        [TestCase(VeryImportantClientName, typeof(VeryImportantClientCreditLimit))]
-        [TestCase(ImportantClientName, typeof(ImportantClientCreditLimit))]
-        [TestCase(OtherClientName, typeof(OtherClientCreditLimit))]
+        [TestCase(VeryImportantClientName, typeof(VeryImportantClientCreditLimitCalculator))]
+        [TestCase(ImportantClientName, typeof(ImportantClientCreditLimitCalculator))]
+        [TestCase(OtherClientName, typeof(OtherClientCreditLimitCalculator))]
         public void create_client_credit_limit_calculator_based_on_client_name(string clientName, Type creditLimitCalculatorType)
         {
             var creditLimitCalculator = _creditLimitCalculatorFactory.GetCreditLimitCalculator(clientName, AFirstname, ASurname, _aDateOfBirth);

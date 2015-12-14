@@ -2,7 +2,7 @@
 
 namespace App.Services.CustomerCreditLimit
 {
-    public class VeryImportantClientCreditLimit : ICreditLimitCalculator
+    public class VeryImportantClientCreditLimitCalculator : ICreditLimitCalculator
     {
         public bool HasNoCreditLimit = false;
 

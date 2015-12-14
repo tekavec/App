@@ -5,6 +5,8 @@ namespace App.Services.CustomerCreditLimit
 {
     public class CreditLimitCalculatorFactory : ICreditLimitCalculatorFactory
     {
+        private const string VeryImportantClientName = "VeryImportantClient";
+        private const string ImportantClientName = "ImportantClient";
         private readonly ICreditLimitAmountService _creditLimitAmountService;
 
         public CreditLimitCalculatorFactory(ICreditLimitAmountService creditLimitAmountService)
@@ -14,15 +16,15 @@ namespace App.Services.CustomerCreditLimit
 
         public ICreditLimitCalculator GetCreditLimitCalculator(string companyName, string firstname, string surname, DateTime dateOfBirth)
         {
-            if (companyName == "VeryImportantClient")
+            if (companyName == VeryImportantClientName)
             {
-                return new VeryImportantClientCreditLimit();
+                return new VeryImportantClientCreditLimitCalculator();
             }
-            if (companyName == "ImportantClient")
+            if (companyName == ImportantClientName)
             {
-                return new ImportantClientCreditLimit(_creditLimitAmountService, firstname, surname, dateOfBirth);
+                return new ImportantClientCreditLimitCalculator(_creditLimitAmountService, firstname, surname, dateOfBirth);
             }
-            return new OtherClientCreditLimit(_creditLimitAmountService, firstname, surname, dateOfBirth);
+            return new OtherClientCreditLimitCalculator(_creditLimitAmountService, firstname, surname, dateOfBirth);
         }
     }
 }

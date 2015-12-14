@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace App.Tests.Services
 {
     [TestFixture]
-    public class OtherClientCreditLimitShould
+    public class OtherClientCreditLimitCalculatorShould
     {
         private ICreditLimitAmountService _creditLimitAmountService;
         private const string AFirstname = "firstname";
@@ -24,11 +24,12 @@ namespace App.Tests.Services
         }
 
         [Test]
-        public void create_a_credit_limit_for_a_important_client()
+        public void create_a_credit_limit_for_other_client()
         {
             var expectedCreditLimit = new CreditLimit(HasCreditLimit, _aCreditLimitAmount);
-            var otherClientCreditLimit = new OtherClientCreditLimit(_creditLimitAmountService, AFirstname, ASurname, _aDateOfBirth);
-            _creditLimitAmountService.GetCreditLimitAmount(AFirstname, ASurname, _aDateOfBirth).Returns(_aCreditLimitAmount);
+            var otherClientCreditLimit = new OtherClientCreditLimitCalculator(_creditLimitAmountService, AFirstname, ASurname, _aDateOfBirth);
+            _creditLimitAmountService.GetCreditLimitAmount(AFirstname, ASurname, _aDateOfBirth)
+                .Returns(_aCreditLimitAmount);
 
             var creditLimit = otherClientCreditLimit.GetCreditLimit();
 

@@ -48,9 +48,9 @@
     <Compile Include="Services\CreditLimitCalculatorFactoryShould.cs" />
     <Compile Include="CustomerServiceShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\OtherClientCreditLimitShould.cs" />
-    <Compile Include="Services\ImportantClientCreditLimitShould.cs" />
-    <Compile Include="Services\VeryImportantClientCreditLimitShould.cs" />
+    <Compile Include="Services\OtherClientCreditLimitCalculatorShould.cs" />
+    <Compile Include="Services\ImportantClientCreditLimitCalculatorShould.cs" />
+    <Compile Include="Services\VeryImportantClientCreditLimitCalculatorShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

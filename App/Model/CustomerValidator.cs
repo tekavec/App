@@ -5,6 +5,9 @@ namespace App.Model
 {
     public class CustomerValidator : ICustomerValidator
     {
+        private const string RequiredEmailCharacters = "@.";
+        private const int LegalAge = 21;
+        private const int MinCreditLimitAmount = 500;
         private readonly IClock _clock;
 
         public CustomerValidator(IClock clock)
@@ -26,7 +29,7 @@ namespace App.Model
         }
         private bool IsEmailAddressValid(string emailAddress)
         {
-            return emailAddress.Contains("@") && emailAddress.Contains(".");
+            return emailAddress.IndexOfAny(RequiredEmailCharacters.ToCharArray()) != -1;
         }
 
         private bool IsAgeValid(DateTime dateOfBirth)
@@ -34,12 +37,12 @@ namespace App.Model
             var now = _clock.Now();
             int age = now.Year - dateOfBirth.Year;
             if (now.Month < dateOfBirth.Month || (now.Month == dateOfBirth.Month && now.Day < dateOfBirth.Day)) age--;
-            return age >= 21;
+            return age >= LegalAge;
         }
 
         private bool IsCreditLimitSufficient(bool hasCreditLimit, int creditLimitAmount)
         {
-            return !hasCreditLimit || creditLimitAmount >= 500;
+            return !hasCreditLimit || creditLimitAmount >= MinCreditLimitAmount;
         }
     }
 }

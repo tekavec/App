@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace App.Tests.Services
 {
     [TestFixture]
-    public class ImportantClientCreditLimitShould
+    public class ImportantClientCreditLimitCalculatorShould
     {
         private ICreditLimitAmountService _creditLimitAmountService;
         private const string AFirstname = "firstname";
@@ -16,7 +16,7 @@ namespace App.Tests.Services
         private const bool HasCreditLimit = true;
         private readonly DateTime _aDateOfBirth = DateTime.Today;
         private readonly int _aCreditLimitAmount = new Random(1000).Next();
-
+        private const int MultiplierForImportantClientsCustomer = 2;
 
         [SetUp]
         public void Init()
@@ -25,11 +25,12 @@ namespace App.Tests.Services
         }
 
         [Test]
-        public void create_a_credit_limit_for_a_important_client()
+        public void create_a_credit_limit_for_an_important_client()
         {
-            var expectedCreditLimit = new CreditLimit(HasCreditLimit, _aCreditLimitAmount *2);
-            var importantClientCreditLimit = new ImportantClientCreditLimit(_creditLimitAmountService, AFirstname, ASurname, _aDateOfBirth);
-            _creditLimitAmountService.GetCreditLimitAmount(AFirstname, ASurname, _aDateOfBirth).Returns(_aCreditLimitAmount);
+            var expectedCreditLimit = new CreditLimit(HasCreditLimit, _aCreditLimitAmount * MultiplierForImportantClientsCustomer);
+            var importantClientCreditLimit = new ImportantClientCreditLimitCalculator(_creditLimitAmountService, AFirstname, ASurname, _aDateOfBirth);
+            _creditLimitAmountService.GetCreditLimitAmount(AFirstname, ASurname, _aDateOfBirth)
+                .Returns(_aCreditLimitAmount);
 
             var creditLimit = importantClientCreditLimit.GetCreditLimit();
 

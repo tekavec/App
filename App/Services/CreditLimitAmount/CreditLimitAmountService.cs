@@ -1,5 +1,4 @@
 using System;
-using App.Infrastructure;
 using App.Infrastructure.Customer;
 
 namespace App.Services.CreditLimitAmount
