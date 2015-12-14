@@ -38,7 +38,7 @@ namespace App
             try
             {
                 var company = _companyRepository.GetById(companyId);
-                var creditLimit = GetCreditLimit(firstname, surname, dateOfBirth, company);
+                var creditLimit = GetCreditLimit(firstname, surname, dateOfBirth, company.Name);
                 var customer = _customerFactory.CreateCustomer(firstname, surname, emailAddress, dateOfBirth, company, creditLimit);
                 _customerRepository.AddCustomer(customer);
                 return true;
@@ -49,9 +49,9 @@ namespace App
             }
         }
 
-        private ICreditLimit GetCreditLimit(string firstname, string surname, DateTime dateOfBirth, Company company)
+        private ICreditLimit GetCreditLimit(string firstname, string surname, DateTime dateOfBirth, string companyName)
         {
-            var creditLimitCalculator = _creditLimitCalculatorFactory.GetCreditLimitCalculator(company.Name, firstname, surname, dateOfBirth);
+            var creditLimitCalculator = _creditLimitCalculatorFactory.GetCreditLimitCalculator(companyName, firstname, surname, dateOfBirth);
             return creditLimitCalculator.GetCreditLimit();
         }
     }
