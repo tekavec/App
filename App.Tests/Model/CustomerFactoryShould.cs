@@ -35,7 +35,7 @@ namespace App.Tests.Model
             var customerFactory = new CustomerFactory(_companyRepository, _creditLimitService, _customerValidator);
             var company = new Company { Id = ACompanyId, Name = AName };
             _companyRepository.GetById(ACompanyId).Returns(company);
-            _creditLimitService.SetCreditLimitTo(company.Name, AName, AName, _aDateOfBirth).Returns(new CreditLimit(HasNoCreditLimit, _creditLimitAmount));
+            _creditLimitService.GetCreditLimit(company.Name, AName, AName, _aDateOfBirth).Returns(new CreditLimit(HasNoCreditLimit, _creditLimitAmount));
             _customerValidator.IsValid(AName, AName, AnEmail, _aDateOfBirth, HasNoCreditLimit, _creditLimitAmount).Returns(false);
 
             TestDelegate testDelegate = () => customerFactory.CreateCustomer(AName, AName, AnEmail, _aDateOfBirth, ACompanyId);
@@ -49,7 +49,7 @@ namespace App.Tests.Model
             var customerFactory = new CustomerFactory(_companyRepository, _creditLimitService, _customerValidator);
             var company = new Company { Id = ACompanyId, Name = AName };
             _companyRepository.GetById(ACompanyId).Returns(company);
-            _creditLimitService.SetCreditLimitTo(company.Name, AName, AName, _aDateOfBirth).Returns(new CreditLimit(HasNoCreditLimit, _creditLimitAmount));
+            _creditLimitService.GetCreditLimit(company.Name, AName, AName, _aDateOfBirth).Returns(new CreditLimit(HasNoCreditLimit, _creditLimitAmount));
             _customerValidator.IsValid(AName, AName, AnEmail, _aDateOfBirth, HasNoCreditLimit, _creditLimitAmount).Returns(true);
 
             var customer = customerFactory.CreateCustomer(AName, AName, AnEmail, _aDateOfBirth, ACompanyId);

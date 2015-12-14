@@ -20,7 +20,7 @@ namespace App.Model
         public Customer CreateCustomer(string firstname, string surname, string emailAddress, DateTime dateOfBirth, int companyId)
         {
             var company = _companyRepository.GetById(companyId);
-            var creditLimit = _creditLimitService.SetCreditLimitTo(company.Name, firstname, surname, dateOfBirth);
+            var creditLimit = _creditLimitService.GetCreditLimit(company.Name, firstname, surname, dateOfBirth);
             if (!_customerValidator.IsValid(firstname, surname, emailAddress, dateOfBirth,creditLimit.HasCreditLimit, creditLimit.CreditLimitAmount))
             {
                 throw new CreatingCustomerNotAllowedException();

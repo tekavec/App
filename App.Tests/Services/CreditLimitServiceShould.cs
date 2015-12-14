@@ -15,8 +15,6 @@ namespace App.Tests.Services
         private const string OtherClientName = "Other Client";
         private const string AString = "SomeString";
         private readonly DateTime _aDateOfBirth = DateTime.Today;
-        private bool _HasCreditLimit = true;
-        private bool _HasNoCreditLimit = false;
         private CreditLimitService _creditLimitService;
 
         [SetUp]
@@ -29,7 +27,7 @@ namespace App.Tests.Services
         [Test]
         public void set_unlimited_credit_limit_to_customer_for_very_important_client()
         {
-            var creditLimit = _creditLimitService.SetCreditLimitTo(VeryImportantClientName, AString, AString, _aDateOfBirth);
+            var creditLimit = _creditLimitService.GetCreditLimit(VeryImportantClientName, AString, AString, _aDateOfBirth);
 
             Assert.IsFalse(creditLimit.HasCreditLimit);
         }
@@ -37,7 +35,7 @@ namespace App.Tests.Services
         [Test]
         public void set_credit_limit_to_customer_for_important_client()
         {
-            var creditLimit = _creditLimitService.SetCreditLimitTo(ImportantClientName, AString, AString, _aDateOfBirth);
+            var creditLimit = _creditLimitService.GetCreditLimit(ImportantClientName, AString, AString, _aDateOfBirth);
 
             Assert.IsTrue(creditLimit.HasCreditLimit);
         }
@@ -48,7 +46,7 @@ namespace App.Tests.Services
             int aCreditLimitAmount = new Random(1000).Next();
             _creditLimitAmountService.GetCreditLimitAmount(AString, AString, _aDateOfBirth).Returns(aCreditLimitAmount);
 
-            var creditLimit = _creditLimitService.SetCreditLimitTo(ImportantClientName, AString, AString, _aDateOfBirth);
+            var creditLimit = _creditLimitService.GetCreditLimit(ImportantClientName, AString, AString, _aDateOfBirth);
 
             Assert.That(creditLimit.CreditLimitAmount, Is.EqualTo(aCreditLimitAmount * 2));
         }
@@ -56,7 +54,7 @@ namespace App.Tests.Services
         [Test]
         public void set_credit_limit_to_customer_for_other_client()
         {
-            var creditLimit = _creditLimitService.SetCreditLimitTo(OtherClientName, AString, AString, _aDateOfBirth);
+            var creditLimit = _creditLimitService.GetCreditLimit(OtherClientName, AString, AString, _aDateOfBirth);
 
             Assert.IsTrue(creditLimit.HasCreditLimit);
         }
@@ -67,7 +65,7 @@ namespace App.Tests.Services
             int aCreditLimitAmount = new Random(1000).Next();
             _creditLimitAmountService.GetCreditLimitAmount(AString, AString, _aDateOfBirth).Returns(aCreditLimitAmount);
 
-            var creditLimit = _creditLimitService.SetCreditLimitTo(OtherClientName, AString, AString, _aDateOfBirth);
+            var creditLimit = _creditLimitService.GetCreditLimit(OtherClientName, AString, AString, _aDateOfBirth);
 
             Assert.That(creditLimit.CreditLimitAmount, Is.EqualTo(aCreditLimitAmount));
         }

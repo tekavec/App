@@ -12,26 +12,20 @@ namespace App.Services
             _creditLimitAmountService = creditLimitAmountService;
         }
 
-        public CreditLimit SetCreditLimitTo(string companyName, string firstname, string surname, DateTime dateOfBirth)
+        public CreditLimit GetCreditLimit(string companyName, string firstname, string surname, DateTime dateOfBirth)
         {
             if (companyName == "VeryImportantClient")
             {
-                // Skip credit check
-                return new CreditLimit(false, new int());
+                return new VeryImportantClientCreditLimit().GetCreditLimit();
 
             }
             else if (companyName == "ImportantClient")
             {
-                // Do credit check and double credit limit
-                var creditLimit = _creditLimitAmountService.GetCreditLimitAmount(firstname, surname, dateOfBirth);
-                return new CreditLimit(true, creditLimit * 2);
-
+                return new ImportantClientCreditLimit(_creditLimitAmountService, firstname, surname, dateOfBirth).GetCreditLimit();
             }
             else
             {
-                // Do credit check
-                var creditLimit = _creditLimitAmountService.GetCreditLimitAmount(firstname, surname, dateOfBirth);
-                return new CreditLimit(true, creditLimit);
+                return new OtherClientCreditLimit(_creditLimitAmountService, firstname, surname, dateOfBirth).GetCreditLimit();
             }
         }
     }

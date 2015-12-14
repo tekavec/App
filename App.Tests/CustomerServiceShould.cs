@@ -29,7 +29,9 @@ namespace App.Tests
         {
             var customerService = new CustomerService(_customerRepository, _customerFactory);
             var customer = new Customer();
-            _customerFactory.CreateCustomer(AName, AName, AnEmail, _aDateOfBirthOfAdult, ACompanyId).Returns(customer);
+            _customerFactory
+                .CreateCustomer(AName, AName, AnEmail, _aDateOfBirthOfAdult, ACompanyId)
+                .Returns(customer);
 
             var result = customerService.AddCustomer(AName, AName, AnEmail, _aDateOfBirthOfAdult, ACompanyId);
 
@@ -40,7 +42,9 @@ namespace App.Tests
         public void not_store_a_customer_if_customer_can_not_be_created()
         {
             var customerService = new CustomerService(_customerRepository, _customerFactory);
-            _customerFactory.CreateCustomer(AName, AName, AnEmail, _aDateOfBirthOfAdult, ACompanyId).Throws(new CreatingCustomerNotAllowedException());
+            _customerFactory
+                .CreateCustomer(AName, AName, AnEmail, _aDateOfBirthOfAdult, ACompanyId)
+                .Throws(new CreatingCustomerNotAllowedException());
 
             var result = customerService.AddCustomer(AName, AName, AnEmail, _aDateOfBirthOfAdult, ACompanyId);
 

@@ -66,7 +66,11 @@
     <Compile Include="Services\CreditLimitService.cs" />
     <Compile Include="Infrastructure\CustomerCreditService.cs" />
     <Compile Include="Services\ICreditLimitAmountService.cs" />
+    <Compile Include="Services\ICreditLimitCalculator.cs" />
     <Compile Include="Services\ICreditLimitService.cs" />
+    <Compile Include="Services\CreditLimitCalculator.cs" />
+    <Compile Include="Services\ImportantClientCreditLimit.cs" />
+    <Compile Include="Services\VeryImportantClientCreditLimit.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
