@@ -43,25 +43,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classification.cs" />
-    <Compile Include="Clock.cs" />
-    <Compile Include="Company.cs" />
-    <Compile Include="CompanyRepository.cs" />
-    <Compile Include="CreditLimitAmountService.cs" />
-    <Compile Include="CreditLimitService.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="CustomerCreditService.cs" />
-    <Compile Include="CustomerDataAccess.cs" />
-    <Compile Include="CustomerRepository.cs" />
+    <Compile Include="Infrastructure\Clock.cs" />
+    <Compile Include="Infrastructure\CompanyRepository.cs" />
+    <Compile Include="Infrastructure\CustomerDataAccess.cs" />
+    <Compile Include="Infrastructure\CustomerRepository.cs" />
+    <Compile Include="Infrastructure\IClock.cs" />
+    <Compile Include="Infrastructure\ICompanyRepository.cs" />
+    <Compile Include="Infrastructure\ICustomerRepository.cs" />
+    <Compile Include="Model\Classification.cs" />
+    <Compile Include="Model\Company.cs" />
+    <Compile Include="Model\Customer.cs" />
     <Compile Include="CustomerService.cs" />
-    <Compile Include="IClock.cs" />
-    <Compile Include="ICompanyRepository.cs" />
-    <Compile Include="ICreditLimitAmountService.cs" />
-    <Compile Include="ICreditLimitService.cs" />
-    <Compile Include="ICustomer.cs" />
-    <Compile Include="ICustomerRepository.cs" />
+    <Compile Include="Model\ICustomer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CreditLimitAmountService.cs" />
+    <Compile Include="Services\CreditLimitService.cs" />
+    <Compile Include="Services\CustomerCreditService.cs" />
+    <Compile Include="Services\ICreditLimitAmountService.cs" />
+    <Compile Include="Services\ICreditLimitService.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

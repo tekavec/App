@@ -1,8 +1,10 @@
 ﻿using System;
+using App.Model;
+using App.Services;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace App.Tests
+namespace App.Tests.Services
 {
     [TestFixture]
     public class CreditLimitServiceShould
@@ -76,15 +78,5 @@ namespace App.Tests
             Assert.That(customer.CreditLimit, Is.EqualTo(aCreditLimitAmount));
         }
 
-        [TestCase(ImportantClientName)]
-        [TestCase(OtherClientName)]
-        public void get_credit_limit_amount_from_credit_amount_service_for_important_and_other_client(string clientName)
-        {
-            var customer = new Customer { HasCreditLimit = _HasNoCreditLimit, Company = new Company { Name = clientName } };
-
-            _creditLimitService.SetCreditLimitTo(customer);
-
-            _creditLimitAmountService.Received().GetCreditLimitAmount(customer);
-        }
     }
 }

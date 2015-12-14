@@ -1,4 +1,7 @@
 ﻿using System;
+using App.Infrastructure;
+using App.Model;
+using App.Services;
 using NSubstitute;
 using NUnit.Framework;
 

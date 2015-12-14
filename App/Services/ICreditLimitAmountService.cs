@@ -1,6 +1,6 @@
-using System;
+using App.Model;
 
-namespace App
+namespace App.Services
 {
     public interface ICreditLimitAmountService
     {

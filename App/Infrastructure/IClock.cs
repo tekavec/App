@@ -1,6 +1,6 @@
 using System;
 
-namespace App
+namespace App.Infrastructure
 {
     public interface IClock
     {
